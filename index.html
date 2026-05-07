@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michelangelo Labs SRL — Shared Mobility for Europe</title>
+  <meta name="description" content="Michelangelo Labs SRL is the European expansion hub for next-generation car-sharing. Based in Romania, powering mobility across the continent." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0D1B2A;
+      --navy2:  #1A2E44;
+      --orange: #E8652A;
+      --orange-light: #F4824F;
+      --gray:   #6B7A8D;
+      --light:  #F4F6F9;
+      --white:  #FFFFFF;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      height: 72px;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(232,101,42,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(26,46,68,0.8) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,101,42,0.15);
+      border: 1px solid rgba(232,101,42,0.35);
+      color: var(--orange-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.4rem;
+    }
+    h1 span { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .hero-cta:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 90px 6%; }
+
+    .section-label {
+      display: inline-block;
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 620px;
+      line-height: 1.75;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .about-text p {
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+    }
+
+    .stat-card .num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-card .num span { color: var(--orange); }
+    .stat-card .label { font-size: 0.85rem; color: var(--gray); font-weight: 500; }
+
+    /* ── WHAT WE DO ── */
+    #what-we-do { background: var(--light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border: 1px solid rgba(13,27,42,0.07);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .service-card:hover { box-shadow: 0 12px 40px rgba(13,27,42,0.1); transform: translateY(-4px); }
+
+    .service-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(232,101,42,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+
+    /* ── PRODUCT ── */
+    #product { background: var(--navy); }
+
+    #product .section-label { color: var(--orange-light); }
+    #product h2 { color: var(--white); }
+    #product .section-intro { color: rgba(255,255,255,0.6); }
+
+    .product-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .product-logo-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .product-logo-box img {
+      max-width: 220px;
+      filter: brightness(0) invert(1);
+    }
+
+    .product-logo-box p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    .product-logo-box a {
+      color: var(--orange-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .product-features { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(232,101,42,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+
+    .feature-item h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .feature-item p { font-size: 0.87rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── INVEST ── */
+    #invest { background: var(--white); }
+
+    .invest-inner {
+      margin-top: 3rem;
+      background: var(--light);
+      border-radius: 20px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .invest-logo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      min-width: 200px;
+    }
+
+    .invest-logo-col img {
+      max-width: 160px;
+      object-fit: contain;
+    }
+
+    .invest-logo-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(13,27,42,0.15);
+    }
+
+    .invest-badges {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .invest-badge-tag {
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    .invest-content h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .invest-content p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .invest-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .invest-pill {
+      background: rgba(232,101,42,0.1);
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(232,101,42,0.25);
+    }
+
+    /* ── IMPACT ── */
+    #impact { background: var(--orange); }
+
+    #impact h2 { color: var(--white); }
+    #impact .section-label { color: rgba(255,255,255,0.7); }
+    #impact .section-intro { color: rgba(255,255,255,0.75); }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .impact-card {
+      background: rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .impact-card .big {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .impact-card .desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 60px 6% 40px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .footer-brand .name span { color: var(--orange); }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-links h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-links ul a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+    .footer-links ul a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid,
+      .product-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .invest-inner { grid-template-columns: 1fr; }
+      .invest-logo-col { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .invest-logo-divider { display: none; }
+      nav ul { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      section { padding: 70px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Michelangelo<span>Labs</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#what-we-do">Services</a></li>
+      <li><a href="#product">Product</a></li>
+      <li><a href="#invest">inVest</a></li>
+      <li><a href="#impact">Impact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Shared Mobility · Romania &amp; Europe</div>
+      <h1>Driving the future of <span>shared mobility</span> across Europe</h1>
+      <p class="hero-sub">
+        Michelangelo Labs SRL is the European expansion hub for next-generation
+        car-sharing technology — bringing smarter, more sustainable transportation
+        to Romania and beyond.
+      </p>
+      <a href="#about" class="hero-cta">Learn more</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <span class="section-label">Who we are</span>
+    <h2>A new chapter for<br>mobility in Europe</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Michelangelo Labs SRL is a Romanian subsidiary purpose-built to spearhead
+          the expansion of cutting-edge car-sharing services across Romania and the
+          wider European market. Headquartered in the Western Region, we are part of
+          a broader ecosystem of innovation that connects vehicle owners and drivers
+          through technology.
+        </p>
+        <p>
+          We believe that access to transportation is a fundamental driver of social
+          and economic growth. Our mission is to make shared mobility accessible,
+          affordable, and impactful — for individuals, communities, and businesses alike.
+        </p>
+        <p>
+          Founded to serve as the European gateway, Michelangelo Labs combines
+          local market expertise with proven technology to build a network of shared
+          vehicles that works for everyone.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="num">€<span>200</span>B</div>
+          <div class="label">Global car-sharing market opportunity</div>
+        </div>
+        <div class="stat-card">
+          <div class="num"><span>750</span>M</div>
+          <div class="label">Potential clients worldwide</div>
+        </div>
+        <div class="stat-card">
+          <div class="num"><span>20</span>%</div>
+          <div class="label">Reduction in demand for new vehicles</div>
+        </div>
+        <div class="stat-card">
+          <div class="num"><span>8</span>×</div>
+          <div class="label">One shared car replaces 8 privately owned</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="what-we-do">
+    <span class="section-label">What we do</span>
+    <h2>Expanding shared mobility,<br>one city at a time</h2>
+    <p class="section-intro">
+      We deploy, grow and localize vehicle-sharing solutions across Romania and Europe,
+      working with individuals, businesses and municipalities.
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h3>Market Expansion</h3>
+        <p>We identify high-potential urban and peri-urban areas in Romania and across Europe,
+        building local density of vehicles and users to trigger organic growth.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <h3>B2B Partnerships</h3>
+        <p>We partner with car rental companies, corporate fleets, and dealers to integrate
+        them into the sharing economy, unlocking new revenue streams through our white-label solution.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Technology Deployment</h3>
+        <p>We localise and deploy our AI-powered platform — adapting language, regulation,
+        and user experience to each market for seamless adoption.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔒</div>
+        <h3>Insurance Innovation</h3>
+        <p>Our proprietary insurance solution, covering cars, motorcycles, recreational vehicles
+        and vans, travels with the platform — removing one of the biggest barriers to car-sharing adoption.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏙️</div>
+        <h3>Municipal Collaboration</h3>
+        <p>We work with city authorities and regional bodies to integrate shared mobility
+        into urban planning, reducing congestion and parking pressure in growing cities.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Data &amp; Impact Reporting</h3>
+        <p>Every ride generates insights. We track environmental, social, and economic impact
+        using a proprietary SROI model developed in partnership with Bocconi University.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product">
+    <span class="section-label">Our product</span>
+    <h2 style="color:var(--white)">Powered by <span style="color:var(--orange)">Volvero</span></h2>
+    <p class="section-intro">
+      Michelangelo Labs is built on Volvero — a proven vehicle-sharing marketplace
+      that connects owners and drivers with AI, blockchain, and a unique integrated insurance layer.
+    </p>
+
+    <div class="product-inner">
+      <div class="product-logo-box">
+        <img
+          src="https://volvero.com/wp-content/uploads/2022/03/Volvero_logo.png"
+          alt="Volvero logo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
+        />
+        <div style="display:none; font-size:2rem; font-weight:800; color:#fff; letter-spacing:-1px;">Volvero</div>
+        <p>
+          The vehicle-sharing platform connecting owners and drivers across Europe.
+          TRL 7 — demonstrated in operational environments.
+        </p>
+        <a href="https://volvero.com" target="_blank" rel="noopener">Visit volvero.com →</a>
+      </div>
+
+      <div class="product-features">
+        <div class="feature-item">
+          <div class="feature-icon">🤖</div>
+          <div>
+            <h4>AI-Powered Driver Analytics</h4>
+            <p>Behavioural data from phone sensors (GPS, gyroscope, accelerometer) drives
+            real-time scoring, improving road safety and trust on the platform.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">⛓️</div>
+          <div>
+            <h4>Blockchain Transparency</h4>
+            <p>Immutable transaction records ensure accountability and trust between
+            owners and drivers — no disputes, no uncertainty.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">📋</div>
+          <div>
+            <h4>Proprietary Insurance Coverage</h4>
+            <p>1 granted patent + 2 pending. Our integrated policy covers all vehicle
+            types across the EU, eliminating the #1 barrier to P2P car-sharing adoption.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🌍</div>
+          <div>
+            <h4>Multi-Segment Marketplace</h4>
+            <p>From private owners and young professionals to corporate fleets and car
+            dealers — Volvero serves all sides of the sharing economy in one platform.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🏷️</div>
+          <div>
+            <h4>White-Label SaaS</h4>
+            <p>Enterprise clients and rental companies deploy Volvero's full stack under
+            their own brand, accelerating our reach without incremental infrastructure cost.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVEST -->
+  <section id="invest">
+    <span class="section-label">Recognition</span>
+    <h2>Selected for inVest —<br>Romania's first Urban Mobility Accelerator</h2>
+    <p class="section-intro">
+      In 2025, Volvero was selected among 14 teams from over 50 European applicants
+      to participate in the inaugural edition of inVest, Romania's first accelerator
+      dedicated to urban mobility innovation.
+    </p>
+
+    <div class="invest-inner">
+      <div class="invest-logo-col">
+        <img
+          src="https://invest-accelerator.com/wp-content/uploads/2025/05/logo.png"
+          alt="inVest Urban Mobility Accelerator logo"
+          onerror="this.style.display='none'"
+        />
+        <div class="invest-logo-divider"></div>
+        <div class="invest-badges">
+          <span class="invest-badge-tag">EIT Urban Mobility</span>
+          <span class="invest-badge-tag">ADR Vest · 2025</span>
+        </div>
+      </div>
+
+      <div class="invest-content">
+        <h3>Startup Track — Western Region of Romania</h3>
+        <p>
+          inVest is implemented by Iceberg+ and Cowork Timișoara, with financial support
+          from EIT Urban Mobility (European Institute of Innovation and Technology) for
+          Stage 1 and ADR Vest (West Regional Development Agency) for Stage 2.
+        </p>
+        <p>
+          Our participation confirmed what we already knew: the Western Region of Romania —
+          covering Timiș, Arad, Caraș-Severin and Hunedoara — is a strategic entry point
+          for shared mobility expansion in Central-Eastern Europe. The accelerator fast-tracked
+          our local network, regulatory insight, and access to key institutional partners.
+        </p>
+        <div class="invest-pills">
+          <span class="invest-pill">🏆 Top 14 of 50+ Applicants</span>
+          <span class="invest-pill">🇷🇴 Western Romania Pilot</span>
+          <span class="invest-pill">🇪🇺 EIT Urban Mobility</span>
+          <span class="invest-pill">📍 Timișoara Hub</span>
+          <span class="invest-pill">🚀 Startup Track</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section id="impact">
+    <span class="section-label">Our Impact</span>
+    <h2 style="color:var(--white)">Mobility that moves the world forward</h2>
+    <p class="section-intro">
+      Measured by a proprietary Social Return on Investment (SROI) model validated with Bocconi University.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="big">75k</div>
+        <div class="desc">tCO₂ reduction over 5 years through fewer vehicles on the road</div>
+      </div>
+      <div class="impact-card">
+        <div class="big">€23M</div>
+        <div class="desc">Social revenues generated over a 5-year horizon</div>
+      </div>
+      <div class="impact-card">
+        <div class="big">14M</div>
+        <div class="desc">Litres of water saved through reduced vehicle manufacturing demand</div>
+      </div>
+      <div class="impact-card">
+        <div class="big">€0.31</div>
+        <div class="desc">Social &amp; environmental return for every €1 invested in the platform</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="name">Michelangelo<span>Labs</span> SRL</div>
+        <p>
+          European expansion hub for shared mobility technology.
+          Based in Romania's Western Region.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#what-we-do">Services</a></li>
+          <li><a href="#product">Product</a></li>
+          <li><a href="#invest">inVest</a></li>
+          <li><a href="#impact">Impact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://volvero.com" target="_blank" rel="noopener">Volvero Platform</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@michelabs.eu">info@michelabs.eu</a></li>
+          <li><a href="https://michelabs.eu">michelabs.eu</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Michelangelo Labs SRL. All rights reserved.</p>
+      <p>Powered by <a href="https://volvero.com" target="_blank" rel="noopener">Volvero</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
