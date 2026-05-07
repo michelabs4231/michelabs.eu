@@ -24,6 +24,78 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Elements start invisible — JS adds .in-view */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                  transform 0.65s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                  transform 0.65s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-left.in-view { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                  transform 0.65s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-right.in-view { opacity: 1; transform: translateX(0); }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.93);
+      transition: opacity 0.6s cubic-bezier(.22,1,.36,1),
+                  transform 0.6s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1); }
+
+    /* Stagger delay helpers */
+    .delay-1 { transition-delay: 0.08s !important; }
+    .delay-2 { transition-delay: 0.16s !important; }
+    .delay-3 { transition-delay: 0.24s !important; }
+    .delay-4 { transition-delay: 0.32s !important; }
+    .delay-5 { transition-delay: 0.40s !important; }
+    .delay-6 { transition-delay: 0.48s !important; }
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--white);
@@ -84,8 +156,9 @@
       position: absolute;
       top: -200px; right: -200px;
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(232,101,42,0.18) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(232,101,42,0.22) 0%, transparent 70%);
       pointer-events: none;
+      animation: heroFloat 6s ease-in-out infinite;
     }
     #hero::after {
       content: '';
@@ -296,7 +369,6 @@
 
     .product-logo-box img {
       max-width: 220px;
-      filter: brightness(0) invert(1);
     }
 
     .product-logo-box p {
@@ -525,6 +597,33 @@
       font-size: 0.8rem;
     }
 
+    /* ── LOGO LINK ── */
+    .logo-link {
+      display: inline-block;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .logo-link:hover { opacity: 0.85; transform: scale(1.04); }
+
+    /* ── FOOTER LEGAL ── */
+    .footer-legal {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.2rem;
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+      align-items: flex-start;
+    }
+    .footer-legal p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.28);
+      line-height: 1.7;
+    }
+    .footer-legal span {
+      color: rgba(255,255,255,0.18);
+      margin: 0 0.3rem;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .about-grid,
@@ -562,24 +661,24 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-inner">
-      <div class="hero-badge">Shared Mobility · Romania &amp; Europe</div>
-      <h1>Driving the future of <span>shared mobility</span> across Europe</h1>
-      <p class="hero-sub">
+      <div class="hero-badge" style="animation: fadeInUp 0.7s ease both 0.1s">Shared Mobility · Romania &amp; Europe</div>
+      <h1 style="animation: fadeInUp 0.8s ease both 0.25s">Driving the future of <span>shared mobility</span> across Europe</h1>
+      <p class="hero-sub" style="animation: fadeInUp 0.8s ease both 0.42s">
         Michelangelo Labs SRL is the European expansion hub for next-generation
         car-sharing technology — bringing smarter, more sustainable transportation
         to Romania and beyond.
       </p>
-      <a href="#about" class="hero-cta">Learn more</a>
+      <a href="#about" class="hero-cta" style="animation: fadeInUp 0.7s ease both 0.58s">Learn more</a>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
-    <span class="section-label">Who we are</span>
-    <h2>A new chapter for<br>mobility in Europe</h2>
+    <span class="section-label reveal">Who we are</span>
+    <h2 class="reveal delay-1">A new chapter for<br>mobility in Europe</h2>
 
     <div class="about-grid">
-      <div class="about-text">
+      <div class="about-text reveal-left delay-1">
         <p>
           Michelangelo Labs SRL is a Romanian subsidiary purpose-built to spearhead
           the expansion of cutting-edge car-sharing services across Romania and the
@@ -600,19 +699,19 @@
       </div>
 
       <div class="about-stats">
-        <div class="stat-card">
+        <div class="stat-card reveal-scale delay-2">
           <div class="num">€<span>200</span>B</div>
           <div class="label">Global car-sharing market opportunity</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal-scale delay-3">
           <div class="num"><span>750</span>M</div>
           <div class="label">Potential clients worldwide</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal-scale delay-4">
           <div class="num"><span>20</span>%</div>
           <div class="label">Reduction in demand for new vehicles</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal-scale delay-5">
           <div class="num"><span>8</span>×</div>
           <div class="label">One shared car replaces 8 privately owned</div>
         </div>
@@ -622,50 +721,50 @@
 
   <!-- WHAT WE DO -->
   <section id="what-we-do">
-    <span class="section-label">What we do</span>
-    <h2>Expanding shared mobility,<br>one city at a time</h2>
-    <p class="section-intro">
+    <span class="section-label reveal">What we do</span>
+    <h2 class="reveal delay-1">Expanding shared mobility,<br>one city at a time</h2>
+    <p class="section-intro reveal delay-2">
       We deploy, grow and localize vehicle-sharing solutions across Romania and Europe,
       working with individuals, businesses and municipalities.
     </p>
 
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card reveal delay-1">
         <div class="service-icon">🗺️</div>
         <h3>Market Expansion</h3>
         <p>We identify high-potential urban and peri-urban areas in Romania and across Europe,
         building local density of vehicles and users to trigger organic growth.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal delay-2">
         <div class="service-icon">🤝</div>
         <h3>B2B Partnerships</h3>
         <p>We partner with car rental companies, corporate fleets, and dealers to integrate
         them into the sharing economy, unlocking new revenue streams through our white-label solution.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal delay-3">
         <div class="service-icon">⚙️</div>
         <h3>Technology Deployment</h3>
         <p>We localise and deploy our AI-powered platform — adapting language, regulation,
         and user experience to each market for seamless adoption.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal delay-4">
         <div class="service-icon">🔒</div>
         <h3>Insurance Innovation</h3>
         <p>Our proprietary insurance solution, covering cars, motorcycles, recreational vehicles
         and vans, travels with the platform — removing one of the biggest barriers to car-sharing adoption.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal delay-5">
         <div class="service-icon">🏙️</div>
         <h3>Municipal Collaboration</h3>
         <p>We work with city authorities and regional bodies to integrate shared mobility
         into urban planning, reducing congestion and parking pressure in growing cities.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal delay-6">
         <div class="service-icon">📊</div>
         <h3>Data &amp; Impact Reporting</h3>
         <p>Every ride generates insights. We track environmental, social, and economic impact
@@ -676,29 +775,29 @@
 
   <!-- PRODUCT -->
   <section id="product">
-    <span class="section-label">Our product</span>
-    <h2 style="color:var(--white)">Powered by <span style="color:var(--orange)">Volvero</span></h2>
-    <p class="section-intro">
-      Michelangelo Labs is built on Volvero — a proven vehicle-sharing marketplace
+    <span class="section-label reveal">Our product</span>
+    <h2 class="reveal delay-1" style="color:var(--white)">Powered by <span style="color:var(--orange)">volvero</span></h2>
+    <p class="section-intro reveal delay-2">
+      Michelangelo Labs leverages Volvero — a proven vehicle-sharing marketplace
       that connects owners and drivers with AI, blockchain, and a unique integrated insurance layer.
     </p>
 
     <div class="product-inner">
-      <div class="product-logo-box">
-        <img
-          src="https://volvero.com/wp-content/uploads/2022/03/Volvero_logo.png"
-          alt="Volvero logo"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
-        />
-        <div style="display:none; font-size:2rem; font-weight:800; color:#fff; letter-spacing:-1px;">Volvero</div>
+      <div class="product-logo-box reveal-left delay-2">
+        <a href="https://volvero.com/en/invest/" target="_blank" rel="noopener" class="logo-link">
+          <img
+            src="assets/volvero-logo.png"
+            alt="Volvero logo"
+          />
+        </a>
         <p>
           The vehicle-sharing platform connecting owners and drivers across Europe.
           TRL 7 — demonstrated in operational environments.
         </p>
-        <a href="https://volvero.com" target="_blank" rel="noopener">Visit volvero.com →</a>
+        <a href="https://volvero.com/en/invest/" target="_blank" rel="noopener">Visit volvero.com →</a>
       </div>
 
-      <div class="product-features">
+      <div class="product-features reveal-right delay-3">
         <div class="feature-item">
           <div class="feature-icon">🤖</div>
           <div>
@@ -749,21 +848,23 @@
 
   <!-- INVEST -->
   <section id="invest">
-    <span class="section-label">Recognition</span>
-    <h2>Selected for inVest —<br>Romania's first Urban Mobility Accelerator</h2>
-    <p class="section-intro">
+    <span class="section-label reveal">Recognition</span>
+    <h2 class="reveal delay-1">Selected for inVest —<br>Romania's first Urban Mobility Accelerator</h2>
+    <p class="section-intro reveal delay-2">
       In 2025, Volvero was selected among 14 teams from over 50 European applicants
       to participate in the inaugural edition of inVest, Romania's first accelerator
       dedicated to urban mobility innovation.
     </p>
 
-    <div class="invest-inner">
+    <div class="invest-inner reveal delay-3">
       <div class="invest-logo-col">
-        <img
-          src="https://invest-accelerator.com/wp-content/uploads/2025/05/logo.png"
-          alt="inVest Urban Mobility Accelerator logo"
-          onerror="this.style.display='none'"
-        />
+        <a href="https://invest-accelerator.com/invest-launch/" target="_blank" rel="noopener" class="logo-link">
+          <img
+            src="https://invest-accelerator.com/wp-content/uploads/2025/05/logo.png"
+            alt="inVest Urban Mobility Accelerator logo"
+            onerror="this.style.display='none'"
+          />
+        </a>
         <div class="invest-logo-divider"></div>
         <div class="invest-badges">
           <span class="invest-badge-tag">EIT Urban Mobility</span>
@@ -797,26 +898,26 @@
 
   <!-- IMPACT -->
   <section id="impact">
-    <span class="section-label">Our Impact</span>
-    <h2 style="color:var(--white)">Mobility that moves the world forward</h2>
-    <p class="section-intro">
+    <span class="section-label reveal">Our Impact</span>
+    <h2 class="reveal delay-1" style="color:var(--white)">Mobility that moves the world forward</h2>
+    <p class="section-intro reveal delay-2">
       Measured by a proprietary Social Return on Investment (SROI) model validated with Bocconi University.
     </p>
 
     <div class="impact-grid">
-      <div class="impact-card">
+      <div class="impact-card reveal-scale delay-2">
         <div class="big">75k</div>
         <div class="desc">tCO₂ reduction over 5 years through fewer vehicles on the road</div>
       </div>
-      <div class="impact-card">
+      <div class="impact-card reveal-scale delay-3">
         <div class="big">€23M</div>
         <div class="desc">Social revenues generated over a 5-year horizon</div>
       </div>
-      <div class="impact-card">
+      <div class="impact-card reveal-scale delay-4">
         <div class="big">14M</div>
         <div class="desc">Litres of water saved through reduced vehicle manufacturing demand</div>
       </div>
-      <div class="impact-card">
+      <div class="impact-card reveal-scale delay-5">
         <div class="big">€0.31</div>
         <div class="desc">Social &amp; environmental return for every €1 invested in the platform</div>
       </div>
@@ -863,9 +964,62 @@
 
     <div class="footer-bottom">
       <p>© 2025 Michelangelo Labs SRL. All rights reserved.</p>
-      <p>Powered by <a href="https://volvero.com" target="_blank" rel="noopener">Volvero</a></p>
+      <p>Powered by <a href="https://volvero.com/en/invest/" target="_blank" rel="noopener">Volvero</a></p>
+    </div>
+
+    <div class="footer-legal">
+      <p>
+        <strong style="color:rgba(255,255,255,0.4)">Michelangelo Labs SRL</strong>
+        <span>·</span> Limited Liability Company registered in Romania
+        <span>·</span> Registered office: Strada Mihail Sadoveanu, Brașov, Romania
+        <span>·</span> Tax ID (CUI): RO17090857
+        <span>·</span> Trade Register No.: J08/3/2005
+      </p>
+      <p>
+        This website is owned and operated by Michelangelo Labs SRL.
+        <span>·</span> info@michelabs.eu
+        <span>·</span> <a href="https://michelabs.eu" style="color:rgba(255,255,255,0.3);">michelabs.eu</a>
+      </p>
     </div>
   </footer>
 
+  <script>
+    // ── Intersection Observer — scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+      .forEach(el => observer.observe(el));
+
+    // ── Nav scroll effect ──
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.25)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    }, { passive: true });
+
+    // ── Active nav link highlight ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav ul a');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.style.color = '');
+          const active = document.querySelector(`nav ul a[href="#${entry.target.id}"]`);
+          if (active) active.style.color = '#F4824F';
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
 </body>
 </html>
